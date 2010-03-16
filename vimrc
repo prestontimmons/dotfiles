@@ -1,0 +1,75 @@
+" settings 
+set nocompatible  " do not be compatible with vi
+
+" movement
+" work more logically with wrapped lines
+noremap j gj
+noremap k gk
+
+" searching and patterns
+set ignorecase " search is case insensitive
+set smartcase  " search case sensitive if caps on 
+set incsearch  " show best match so far
+set hlsearch   " highlight matches to the search 
+
+" display
+set lazyredraw     " do not repaint when scripts are running
+set scrolloff=3    " keep 3 lines below and above the cursor
+set ruler          " line numbers and column the cursor is on
+set number         " show line numbering
+
+" editing
+set backspace=2        " backspace over anything
+set showmatch          " briefly jump to the previous matching paren
+set matchtime=2        " for .2 seconds
+set formatoptions-=tc
+set tabstop=4          " tab stop of 4
+set shiftwidth=4       " sw 4 spaces (used on auto indent)
+set softtabstop=4      " 4 spaces as a tab for bs/del
+
+" do not edit these type of files
+set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.swp
+
+" coding
+set history=1000           " 1000 Lines of history
+set showfulltag            " show more information while completing tags
+filetype indent on         " enable filetype indent
+filetype plugin on         " enable filetype plugins
+filetype plugin indent on  " let filetype plugins indent for me
+syntax enable              " turn on syntax highlighting
+
+" Set default options
+set expandtab
+set autoindent
+set smarttab
+set nowrap     " default to no text wrap
+set linebreak  " make text-wrapping nicer
+set enc=utf-8  " set default encoding
+
+" Set backup files to a single directory
+set backupdir=~/tmp,.
+
+" Set file format to unix always
+autocmd BufWrite * set fileformat=unix
+
+" Set syntax highlighting options
+autocmd BufRead *.py setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd BufRead,BufNewFile *.as setlocal filetype=actionscript
+autocmd BufRead,BufNewFile *.asc setlocal filetype=actionscript
+
+" Set tabstop for 2 or 4
+map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+map <C-p> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
+
+" Change html tags to lowercase
+map <f6> :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
+nmap <f7> I<p></p>j<f7>
+
+" Strip trailing whitespace and format tuples for python files
+map <f9> :%s/\s\+$//ge\|%s/,)/, )/ge<cr>
+
+" Change the working directory to the current file always
+autocmd BufEnter,BufWritePost * lcd %:p:h
+
+" <C-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
