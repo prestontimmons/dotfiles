@@ -1,8 +1,10 @@
+" More information can be found about settings by
+" typing :help <setting>
+"
 " settings 
 set nocompatible  " do not be compatible with vi
 
-" movement
-" work more logically with wrapped lines
+" make movement work more logically with wrapped lines
 noremap j gj
 noremap k gk
 
@@ -20,46 +22,51 @@ set number         " show line numbering
 
 " editing
 set backspace=2        " backspace over anything
-set showmatch          " briefly jump to the previous matching paren
-set matchtime=2        " for .2 seconds
+set showmatch          " highlight matched parenthesis
+set matchtime=2        " length of time to show matched parenthesis (milliseconds)
 set formatoptions-=tc
 set tabstop=4          " tab stop of 4
 set shiftwidth=4       " sw 4 spaces (used on auto indent)
 set softtabstop=4      " 4 spaces as a tab for bs/del
 
-" do not edit these type of files
+" don't tab complete these types of files
 set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.swp
 
 " coding
 set history=1000           " 1000 Lines of history
-set showfulltag            " show more information while completing tags
 filetype indent on         " enable filetype indent
 filetype plugin on         " enable filetype plugins
 filetype plugin indent on  " let filetype plugins indent for me
 syntax enable              " turn on syntax highlighting
 
 " Set default options
-set expandtab
-set autoindent
-set smarttab
+set expandtab  " expand tab characters to spaces
+set autoindent " use auto-indentation
+set smarttab   " indent based on context
 set nowrap     " default to no text wrap
 set linebreak  " make text-wrapping nicer
-set enc=utf-8  " set default encoding
+set enc=utf-8  " set default encoding to utf-8
 
 " Set backup files to a single directory
 set backupdir=~/tmp,.
 
-" Set file format to unix always
+" On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
 
 " Set syntax highlighting options
 autocmd BufRead *.py setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-autocmd BufRead,BufNewFile *.as setlocal filetype=actionscript
-autocmd BufRead,BufNewFile *.asc setlocal filetype=actionscript
 
-" Set tabstop for 2 or 4
+" Control-o: Set tabstop for 4
 map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+
+" Control-p: Set tabstop for 2
 map <C-p> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
+
+" Control-k: Set paste
+map <C-u> :set paste<cr>
+
+" Control-l: Set nopaste
+map <C-i> :set nopaste<cr>
 
 " Change html tags to lowercase
 map <f6> :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
