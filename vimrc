@@ -1,14 +1,14 @@
 " More information can be found about settings by
-" typing :help <setting>
+" typing :help or :help <setting>
 "
 " settings 
 set nocompatible  " do not be compatible with vi
 
-" make movement work more logically with wrapped lines
+" make vertical movement within wrapped lines easier
 noremap j gj
 noremap k gk
 
-" searching and patterns
+" searching and patterns (search with /<pattern>)
 set ignorecase " search is case insensitive
 set smartcase  " search case sensitive if caps on 
 set incsearch  " show best match so far
@@ -16,8 +16,8 @@ set hlsearch   " highlight matches to the search
 
 " display
 set lazyredraw     " do not repaint when scripts are running
-set scrolloff=3    " keep 3 lines below and above the cursor
-set ruler          " line numbers and column the cursor is on
+set scrolloff=3    " keep 3 lines below and above the cursor when scrolling
+set ruler          " show line numbers and column the cursor is on in status bar
 set number         " show line numbering
 
 " editing
@@ -80,3 +80,6 @@ autocmd BufEnter,BufWritePost * lcd %:p:h
 
 " <C-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR><C-l>
+
+" Hide pyc files in file explorer (:help netrw_list_hide)
+let g:netrw_list_hide= ".*\.pyc$,.*\.swp$"
