@@ -57,13 +57,13 @@ autocmd BufWrite * set fileformat=unix
 autocmd BufRead *.py setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 " Control-o: Set tabstop for 4
-map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+map <C-O> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 
 " Control-p: Set tabstop for 2
-map <C-p> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
+map <C-P> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
 
-" Control-Shift-P: Toggle paste
-map <C-S-P> :set paste!<cr>
+" Control-I: Toggle paste
+map <C-I> :set paste!<cr>
 
 " Convert html tags to lowercase
 map <f6> :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
