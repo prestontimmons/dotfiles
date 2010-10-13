@@ -80,3 +80,13 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " Hide pyc files in file explorer (:help netrw_list_hide)
 let g:netrw_list_hide= ".*\.pyc$,.*\.swp$"
+
+" Show highlighting groups for current word
+" http://vimcasts.org/episodes/creating-colorschemes-for-vim/
+nmap <C-S-Y> :call <SID>SynStack()<cr>
+function! <SID>SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
