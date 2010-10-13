@@ -62,13 +62,10 @@ map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 " Control-p: Set tabstop for 2
 map <C-p> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
 
-" Control-k: Set paste
-map <C-)> :set paste<cr>
+" Control-Shift-P: Toggle paste
+map <C-S-P> :set paste!<cr>
 
-" Control-l: Set nopaste
-map <C-(> :set nopaste<cr>
-
-" Change html tags to lowercase
+" Convert html tags to lowercase
 map <f6> :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
 nmap <f7> I<p></p>j<f7>
 
