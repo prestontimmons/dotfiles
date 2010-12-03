@@ -1,8 +1,17 @@
 " More information can be found about settings by
 " typing :help or :help <setting>
 "
-" settings 
+" settings
 set nocompatible  " do not be compatible with vi
+
+" read the python configuration for python files
+if !exists("autocommands_loaded")
+  let autocommands_loaded = 1
+  autocmd BufRead,BufNewFile,FileReadPost *.py source ~/.vim/python
+endif
+
+" This beauty remembers where you were the last time you edited the file, and returns to the same position.
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " make vertical movement within wrapped lines easier
 noremap j gj
@@ -10,9 +19,9 @@ noremap k gk
 
 " searching and patterns (search with /<pattern>)
 set ignorecase " search is case insensitive
-set smartcase  " search case sensitive if caps on 
+set smartcase  " search case sensitive if caps on
 set incsearch  " show best match so far
-set hlsearch   " highlight matches to the search 
+set hlsearch   " highlight matches to the search
 
 " display
 set lazyredraw     " do not repaint when scripts are running
@@ -30,7 +39,7 @@ set shiftwidth=4       " sw 4 spaces (used on auto indent)
 set softtabstop=4      " 4 spaces as a tab for bs/del
 
 " don't tab complete these types of files
-set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.swp
+set wildignore=*.o,*.obj,*.bak,*.exe,*.pyc,*.pyo,*.swp
 
 " coding
 set history=1000           " 1000 Lines of history
@@ -53,24 +62,21 @@ set backupdir=~/tmp,.
 " On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
 
-" Set syntax highlighting options
-autocmd BufRead *.py setlocal smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
-
 " Control-o: Set tabstop for 4
-map <C-O> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 
 " Control-p: Set tabstop for 2
-map <C-P> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
-
-" Control-I: Toggle paste
-map <C-I> :set paste!<cr>
+map <C-p> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
 
 " Convert html tags to lowercase
 map <f6> :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
 nmap <f7> I<p></p>j<f7>
 
-" Strip trailing whitespace and format tuples for python files
-map <f9> :%s/\s\+$//ge\|%s/,)/, )/ge<cr>
+" Remove trailing whitespace from file
+nmap <silent> ,a :%s/\s\+$//ge<cr>
+
+" Toggle paste mode
+nmap ,p :set invpaste paste?<cr>
 
 " Change the working directory to the current file always
 autocmd BufEnter,BufWritePost * lcd %:p:h
@@ -79,11 +85,11 @@ autocmd BufEnter,BufWritePost * lcd %:p:h
 nnoremap <silent> <C-l> :nohl<CR><C-l>
 
 " Hide pyc files in file explorer (:help netrw_list_hide)
-let g:netrw_list_hide= ".*\.pyc$,.*\.swp$"
+let g:netrw_list_hide= ".*\.pyc$,*\.pyo$,.*\.swp$"
 
 " Show highlighting groups for current word
 " http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nmap <C-S-Y> :call <SID>SynStack()<cr>
+nmap <C-i> :call <SID>SynStack()<cr>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
