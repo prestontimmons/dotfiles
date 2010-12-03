@@ -78,6 +78,9 @@ nmap <silent> ,a :%s/\s\+$//ge<cr>
 " Toggle paste mode
 nmap ,p :set invpaste paste?<cr>
 
+" Open a new tabe in the explorer window
+nmap ,t :tabe\|:Ex<cr>
+
 " Change the working directory to the current file always
 autocmd BufEnter,BufWritePost * lcd %:p:h
 
