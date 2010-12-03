@@ -81,6 +81,9 @@ nmap ,p :set invpaste paste?<cr>
 " Open a new tabe in the explorer window
 nmap ,t :tabe\|:Ex<cr>
 
+" Delete DOS carriage returns
+nmap ,m :%s/\r//g<cr>
+
 " Change the working directory to the current file always
 autocmd BufEnter,BufWritePost * lcd %:p:h
 
