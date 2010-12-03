@@ -89,7 +89,7 @@ let g:netrw_list_hide= ".*\.pyc$,*\.pyo$,.*\.swp$"
 
 " Show highlighting groups for current word
 " http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nmap <C-i> :call <SID>SynStack()<cr>
+nmap ,y :call <SID>SynStack()<cr>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
