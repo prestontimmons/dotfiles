@@ -1,0 +1,8 @@
+cd ~
+if [ ! -d vimconfig ]; then
+    git clone git://github.com/prestontimmons/vimconfig.git
+fi
+rm -f .vimrc
+rm -rf .vim
+ln -s vimconfig/vimrc .vimrc
+ln -s vimconfig/.vim .
