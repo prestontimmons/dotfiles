@@ -62,6 +62,9 @@ set backupdir=~/tmp,.
 " On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
 
+" Map shift-k to k
+nmap <S-k> k
+
 " Control-o: Set tabstop for 4
 map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 
