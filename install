@@ -1,8 +1,8 @@
 cd ~
-if [ ! -d vimconfig ]; then
-    git clone git://github.com/prestontimmons/vimconfig.git
+if [ ! -d dotfiles ]; then
+    git clone git@github.com:prestontimmons/dotfiles.git
 fi
 rm -f .vimrc
 rm -rf .vim
-ln -s vimconfig/vimrc .vimrc
-ln -s vimconfig/.vim .
+ln -s dotfiles/vimrc .vimrc
+ln -s dotfiles/vim .vim
