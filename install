@@ -1,6 +1,6 @@
 cd ~
 if [ ! -d dotfiles ]; then
-    git clone git@github.com:prestontimmons/dotfiles.git
+    git clone https://prestontimmons@github.com/prestontimmons/dotfiles.git
 fi
 rm -f .vimrc
 rm -rf .vim
