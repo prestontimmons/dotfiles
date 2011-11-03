@@ -13,10 +13,6 @@ set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 set omnifunc=pythoncomplete#Complete
 inoremap <Nul> <C-x><C-o>
 
-" Get this plugin from http://www.vim.org/scripts/script.php?script_id=1112
-" Pressing "K" takes you to the documentation for the word under the cursor.
-autocmd filetype python source ~/.vim/pydoc.vim
-
 " Wrap at 72 chars for comments.
 " set formatoptions=cql textwidth=72 foldignore=
 
