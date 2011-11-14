@@ -56,6 +56,9 @@ set nowrap     " default to no text wrap
 set linebreak  " make text-wrapping nicer
 set enc=utf-8  " set default encoding to utf-8
 
+" Smart indenting
+set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+
 " Set backup files to a single directory
 set backupdir=~/tmp,.
 
@@ -96,12 +99,6 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 " Hide pyc files in file explorer (:help netrw_list_hide)
 let g:netrw_list_hide= ".*\.pyc$,*\.pyo$,.*\.swp$"
 
-" Show highlighting groups for current word
-" http://vimcasts.org/episodes/creating-colorschemes-for-vim/
-nmap ,y :call <SID>SynStack()<cr>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
+" Highlight end of line whitespace.
+highlight WhitespaceEOL ctermbg=red guibg=red
+match WhitespaceEOL /\s\+$/
