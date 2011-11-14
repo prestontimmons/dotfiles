@@ -3,6 +3,4 @@ if [ ! -d dotfiles ]; then
     git clone https://prestontimmons@github.com/prestontimmons/dotfiles.git
 fi
 rm -f .vimrc
-rm -rf .vim
 ln -s dotfiles/vimrc .vimrc
-ln -s dotfiles/vim .vim
