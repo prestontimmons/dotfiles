@@ -4,6 +4,8 @@
 " settings
 set nocompatible  " do not be compatible with vi
 
+color mac_classic
+
 " This beauty remembers where you were the last time you edited the file, and returns to the same position.
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
@@ -22,6 +24,8 @@ set lazyredraw     " do not repaint when scripts are running
 set scrolloff=3    " keep 3 lines below and above the cursor when scrolling
 set ruler          " show line numbers and column the cursor is on in status bar
 set number         " show line numbering
+set foldlevelstart=99
+set t_Co=256
 
 " editing
 set backspace=2        " backspace over anything
