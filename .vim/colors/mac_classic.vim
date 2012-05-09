@@ -35,53 +35,52 @@ let g:colors_name = "mac_classic"
 " #FFFFFF - WHITE
 
 " GUI:
-hi Cursor  guifg=#FFFFFF ctermfg=15 guibg=#3C4C72 ctermbg=240
-hi Visual  guibg=#C6DEFF ctermbg=189
-hi CursorLine  guibg=#F0F6FF ctermbg=231
-hi CursorColumn  guibg=#F0F6FF ctermbg=15
-hi LineNr  guifg=#808080 ctermfg=244 guibg=#EFEFEF ctermbg=231
-hi VertSplit  guifg=#FFFFFF ctermfg=15 guibg=#CFCFCF ctermbg=252 gui=NONE
-hi MatchParen  guifg=#1E39F6 ctermfg=27 guibg=NONE gui=bold
-hi Pmenu guibg=#EFEFEF ctermbg=7
-hi PmenuSel  guibg=#C6DEFF ctermbg=189
-hi Directory  guifg=#D51015 ctermfg=88
+hi Cursor  ctermfg=15 ctermbg=240
+hi Visual  ctermbg=189
+hi CursorLine  ctermbg=231
+hi CursorColumn  ctermbg=15
+hi LineNr  ctermfg=244
+hi VertSplit  ctermfg=15 ctermbg=252
+hi MatchParen  ctermfg=27
+hi Pmenu ctermbg=7
+hi PmenuSel  ctermbg=189
+hi Directory  ctermfg=88
 
 " StatusLine:
-hi StatusLine  guifg=#000000 ctermfg=0 guibg=#C6DEFF ctermbg=189 gui=italic
-hi StatusLineNC  guifg=#000000 ctermfg=0 guibg=#EFEFEF ctermbg=7 gui=NONE
+hi StatusLine  ctermfg=0 ctermbg=189
+hi StatusLineNC  ctermfg=0 ctermbg=7
 
 " Search:
 " [IncSearch is stronger than Search]
-hi IncSearch  guifg=NONE guibg=#FFCE77 ctermbg=222 gui=NONE
-hi Search  guibg=#FFE6BB ctermbg=223
+hi IncSearch  ctermbg=222
+hi Search  ctermbg=223
 
 " Syntax:
-" hi Normal  guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=231
-hi Normal  guifg=#000000 ctermfg=0
-hi Boolean  guifg=#6E79F1 ctermfg=69 gui=bold
-hi Character  guifg=#D51015 ctermfg=160 gui=bold
-hi Comment  guifg=#0066FF ctermfg=27 gui=italic
-hi Conditional  guifg=#1E39F6 ctermfg=27 gui=bold
-hi Constant  guifg=#D51015 ctermfg=160 gui=bold
-hi Define  guifg=#1E39F6 ctermfg=27 gui=bold
-hi ErrorMsg  guifg=#FFFFFF ctermfg=15 guibg=#990000 ctermbg=88
-hi WarningMsg  guifg=#FFFFFF ctermfg=15 guibg=#990000 ctermbg=88
-hi Float  guifg=#0000A2 ctermfg=19
-hi Function  guifg=#0000A2 ctermfg=19 gui=bold
-hi Identifier  guifg=#1E39F6 ctermfg=27 gui=bold
-hi Keyword  guifg=#1E39F6 ctermfg=27 gui=bold
-hi Label  guifg=#007B22 ctermfg=28
-hi Number  guifg=#0000A2 ctermfg=19
-hi Operator  guifg=#1E39F6 ctermfg=27 gui=bold
-hi PreProc  guifg=#1E39F6 ctermfg=27 gui=bold
-hi Special  guifg=#000000 ctermfg=0
-hi Statement  guifg=#1E39F6 ctermfg=27 gui=bold
-hi StorageClass  guifg=#1E39F6 ctermfg=27 gui=bold
-hi String  guifg=#007B22 ctermfg=28
-hi Title  guifg=#000000 ctermfg=0 gui=bold
-hi Todo  guifg=#0066FF ctermfg=27 gui=inverse,bold,italic
-hi Underlined  gui=underline
+" hi Normal  ctermfg=0 ctermbg=231
+hi Normal  ctermfg=0
+hi Boolean  ctermfg=69
+hi Character  ctermfg=160
+hi Comment  ctermfg=27
+hi Conditional  ctermfg=27
+hi Constant  ctermfg=160
+hi Define  ctermfg=27
+hi ErrorMsg  ctermfg=15 ctermbg=88
+hi WarningMsg  ctermfg=15 ctermbg=88
+hi Float  ctermfg=19
+hi Function  ctermfg=19
+hi Identifier  ctermfg=27
+hi Keyword  ctermfg=27
+hi Label  ctermfg=28
+hi Number  ctermfg=19
+hi Operator  ctermfg=27
+hi PreProc  ctermfg=27
+hi Special  ctermfg=0
+hi Statement  ctermfg=27
+hi StorageClass  ctermfg=27
+hi String  ctermfg=28
+hi Title  ctermfg=0
+hi Todo  ctermfg=27
 
 " Invisible character colors
-hi NonText  guifg=#DFDFDF ctermfg=253 guibg=#FFFFFF ctermbg=15
-hi SpecialKey  guifg=#DFDFDF ctermfg=253 guibg=#FFFFFF ctermbg=15
+hi NonText  ctermfg=253
+hi SpecialKey  ctermfg=253 ctermbg=15
