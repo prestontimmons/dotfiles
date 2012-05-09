@@ -56,7 +56,8 @@ hi IncSearch  guifg=NONE guibg=#FFCE77 ctermbg=222 gui=NONE
 hi Search  guibg=#FFE6BB ctermbg=223
 
 " Syntax:
-hi Normal  guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=231
+" hi Normal  guifg=#000000 ctermfg=0 guibg=#FFFFFF ctermbg=231
+hi Normal  guifg=#000000 ctermfg=0
 hi Boolean  guifg=#6E79F1 ctermfg=69 gui=bold
 hi Character  guifg=#D51015 ctermfg=160 gui=bold
 hi Comment  guifg=#0066FF ctermfg=27 gui=italic
