@@ -46,10 +46,6 @@ hi Pmenu ctermbg=7
 hi PmenuSel  ctermbg=189
 hi Directory  ctermfg=88
 
-" StatusLine:
-hi StatusLine  ctermfg=0 ctermbg=189
-hi StatusLineNC  ctermfg=0 ctermbg=7
-
 " Search:
 " [IncSearch is stronger than Search]
 hi IncSearch  ctermbg=222
@@ -84,3 +80,7 @@ hi Todo  ctermfg=27
 " Invisible character colors
 hi NonText  ctermfg=253
 hi SpecialKey  ctermfg=253 ctermbg=15
+
+
+highlight clear TabLine
+hi Tabline cterm=underline
