@@ -100,3 +100,13 @@ let g:netrw_list_hide= ".*\.pyc$,*\.pyo$,.*\.swp$"
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red
 match WhitespaceEOL /\s\+$/
+
+" Escape html tags
+function HtmlEscape()
+  silent s/&/\&amp;/ge
+  silent s/</\&lt;/ge
+  silent s/>/\&gt;/ge
+  silent s/"/\&quot;/ge
+endfunction
+
+map <silent> ,h :call HtmlEscape()<CR>
