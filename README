@@ -1,3 +1,1 @@
-My vim configuration
-
-bash < <(curl -s https://raw.github.com/prestontimmons/dotfiles/master/install)
+curl -o ~/.vimrc https://raw.github.com/prestontimmons/dotfiles/master/vimrc
