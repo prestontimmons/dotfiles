@@ -11,6 +11,10 @@ au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|
 noremap j gj
 noremap k gk
 
+" Map shift-k to k
+nmap K k
+vmap K k
+
 " searching and patterns (search with /<pattern>)
 set ignorecase " search is case insensitive
 set smartcase  " search case sensitive if caps on
@@ -60,9 +64,6 @@ set backupdir=~/tmp,.
 
 " On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
-
-" Map shift-k to k
-nmap K k
 
 " Control-o: Set tabstop for 4
 map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
