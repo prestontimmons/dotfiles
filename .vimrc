@@ -66,14 +66,13 @@ set backupdir=~/tmp,.
 autocmd BufWrite * set fileformat=unix
 
 " Control-o: Set tabstop for 4
-map <C-o> :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+map ,] :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 
 " Control-p: Set tabstop for 2
-map <C-p> :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
+map ,[ :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
 
 " Convert html tags to lowercase
-map <f6> :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
-nmap <f7> I<p></p>j<f7>
+nmap ,z :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
 
 " Remove trailing whitespace from file
 nmap <silent> ,a :%s/\s\+$//ge<cr>
@@ -85,7 +84,7 @@ nmap ,p :set invpaste paste?<cr>
 nmap ,t :tabe\|:Ex<cr>
 
 " Delete DOS carriage returns
-nmap ,m :%s/\r//g<cr>
+nmap <silent> ,m :%s/\r//g<cr>
 
 " Change the working directory to the current file always
 autocmd BufEnter,BufWritePost * lcd %:p:h
