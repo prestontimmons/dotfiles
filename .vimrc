@@ -66,16 +66,16 @@ set backupdir=~/tmp,.
 autocmd BufWrite * set fileformat=unix
 
 " Control-o: Set tabstop for 4
-map ,] :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+map ,s :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 
 " Control-p: Set tabstop for 2
-map ,[ :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
+map ,a :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
 
 " Convert html tags to lowercase
 nmap ,z :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
 
 " Remove trailing whitespace from file
-nmap <silent> ,a :%s/\s\+$//ge<cr>
+nmap <silent> ,f :%s/\s\+$//ge<cr>
 
 " Toggle paste mode
 nmap ,p :set invpaste paste?<cr>
