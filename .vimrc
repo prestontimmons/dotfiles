@@ -65,10 +65,10 @@ set backupdir=~/tmp,.
 " On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
 
-" Control-o: Set tabstop for 4
+" Set tabstop for 4
 map ,s :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
 
-" Control-p: Set tabstop for 2
+" Set tabstop for 2
 map ,a :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
 
 " Convert html tags to lowercase
