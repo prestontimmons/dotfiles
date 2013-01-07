@@ -86,6 +86,12 @@ nmap ,t :tabe\|:Ex<cr>
 " Delete DOS carriage returns
 nmap <silent> ,m :%s/\r//g<cr>
 
+" Toggle line-wrapping
+nmap ,w :set wrap!<cr>
+
+" Toggle line numbers
+nmap ,n :set number!<cr>
+
 " Change the working directory to the current file always
 autocmd BufEnter,BufWritePost * lcd %:p:h
 
