@@ -115,6 +115,14 @@ endfunction
 
 map <silent> ,h :call HtmlEscape()<CR>
 
+" Escape Django brackets
+function DjangoEscape()
+  silent s/{/\&#123;/ge
+  silent s/}/\&#125;/ge
+endfunction
+
+map <silent> ,d :call DjangoEscape()<CR>
+
 
 " Vim color scheme
 
