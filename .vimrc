@@ -59,6 +59,9 @@ set enc=utf-8  " set default encoding to utf-8
 " Smart indenting
 set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
+" Stop smartindent from unindenting python comments
+autocmd BufRead *.py inoremap # X<c-h>#<space>
+
 " Set backup files to a single directory
 set backupdir=~/tmp,.
 
