@@ -63,7 +63,8 @@ set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd BufRead *.py inoremap # X<c-h>#<space>
 
 " Set backup files to a single directory
-set backupdir=~/tmp,.
+set backupdir=~/.vim//,.
+set directory=~/.vim//,.
 
 " On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
