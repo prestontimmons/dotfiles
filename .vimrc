@@ -105,6 +105,9 @@ nnoremap <silent> <C-l> :nohl<CR><C-l>
 " Hide pyc files in file explorer (:help netrw_list_hide)
 let g:netrw_list_hide= ".*\.pyc$,*\.pyo$,.*\.swp$"
 
+" Go indent settings
+autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red
 match WhitespaceEOL /\s\+$/
