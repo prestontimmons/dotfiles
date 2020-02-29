@@ -175,12 +175,13 @@ autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
 let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 let g:go_jump_to_error = 0
-let g:go_def_reuse_buffer = 1
+" let g:go_def_reuse_buffer = 0
 " let g:go_auto_type_info = 1
 
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <silent> <leader>v <Plug>(go-vet)<cr>
 autocmd FileType go nmap <leader>d <Plug>(go-def-tab)
 autocmd FileType go nmap <leader>r :GoIfErr<CR>
 autocmd FileType go nmap <leader>i <Plug>(go-info)
