@@ -1,10 +1,32 @@
+" Install vim-plug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Install vim-plug
+call plug#begin('~/.vim/plugged')
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+    Plug 'rust-lang/rust.vim'
+    Plug 'racer-rust/vim-racer'
+    Plug 'posva/vim-vue'
+    Plug 'lifepillar/vim-mucomplete'
+    Plug 'vim-syntastic/syntastic'
+    Plug 'relastle/bluewery.vim'
+    Plug 'itchyny/lightline.vim'
+    Plug 'junegunn/vim-easy-align'
+call plug#end()
+
 " More information can be found about settings by
 " typing :help or :help <setting>
-"
+
 " settings
 set nocompatible  " do not be compatible with vi
 
-" This beauty remembers where you were the last time you edited the file, and returns to the same position.
+let mapleader = ","
+
+" Restore cursor to last edited position
 au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " make vertical movement within wrapped lines easier
@@ -28,6 +50,8 @@ set ruler          " show line numbers and column the cursor is on in status bar
 set number         " show line numbering
 set foldlevelstart=99
 set t_Co=256
+set hidden         " hidden buffers
+set notitle
 
 " editing
 set backspace=2        " backspace over anything
@@ -62,154 +86,195 @@ set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 " Stop smartindent from unindenting python comments
 autocmd BufRead *.py inoremap # X<c-h>#<space>
 
-" Set backup files to a single directory
-set backupdir=~/.vim//,.
-set directory=~/.vim//,.
+" Disable syntax highlighting for markdown
+autocmd BufRead {*.md} set filetype=markdown
+" autocmd FileType markdown setlocal syntax=off
+
+" Store swap files in ~/.vim/swap
+set backupdir=~/.vim/swap/,.
+set directory=~/.vim/swap/,.
 
 " On save, set file format to unix always
 autocmd BufWrite * set fileformat=unix
 
-" Set tabstop for 4
-map ,s :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
-
-" Set tabstop for 2
-map ,a :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
-
-" Convert html tags to lowercase
-nmap ,z :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
-
 " Remove trailing whitespace from file
-nmap <silent> ,f :%s/\s\+$//ge<cr>
+nmap <silent> <leader>f :%s/\s\+$//ge<cr>
 
 " Toggle paste mode
-nmap ,p :set invpaste paste?<cr>
+nmap <leader>p :set invpaste paste?<cr>
 
 " Open a new tabe in the explorer window
-nmap ,t :tabe\|:Ex<cr>
+nmap <leader>t :tabe\|:Ex<cr>
 
 " Delete DOS carriage returns
-nmap <silent> ,m :%s/\r//g<cr>
+nmap <silent> <leader>m :%s/\r//g<cr>
 
 " Toggle line-wrapping
-nmap ,w :set wrap!<cr>
+nmap <leader>w :set wrap!<cr>
 
 " Toggle line numbers
-nmap ,n :set number!<cr>
+nmap <leader>n :set number!<cr>
 
 " Change the working directory to the current file always
 autocmd BufEnter,BufWritePost * lcd %:p:h
 
 " <C-l> redraws the screen and removes any search highlighting.
-nnoremap <silent> <C-l> :nohl<CR><C-l>
+nnoremap <silent> <C-l> :nohl<CR>:cclose<CR>:lclose<CR><C-l>
 
 " Hide pyc files in file explorer (:help netrw_list_hide)
 let g:netrw_list_hide= ".*\.pyc$,*\.pyo$,.*\.swp$"
+let g:netrw_fastbrowse = 0
+let g:netrw_banner = 0
+let g:netrw_liststyle = 1
 
-" Go indent settings
+" Indent toggle
+nmap <leader>s :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
+nmap <leader>a :set tabstop=2\|set softtabstop=2\|set shiftwidth=2<cr>
+
+" HTML settings
+autocmd FileType html setlocal noexpandtab shiftwidth=2 tabstop=2 softtabstop=2
+
+" Convert html tags to lowercase
+autocmd FileType html nmap <leader>z :%s/<\/\?\zs\(\a\+\)\ze[ >]/\L\1/g<cr>
+
+" Escape html tags
+function HtmlEscape()
+    silent s/&/\&amp;/ge
+    silent s/</\&lt;/ge
+    silent s/>/\&gt;/ge
+    silent s/"/\&quot;/ge
+endfunction
+
+autocmd FileType html vmap <leader>h :call HtmlEscape()<CR>
+
+" C settings
+augroup project
+    autocmd!
+    autocmd BufRead,BufNewFile *.h,*.c set filetype=c
+augroup END
+
+" Go settings
 autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
+" nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
+let g:go_fmt_command = "goimports"
+let g:go_list_type = "quickfix"
+let g:go_jump_to_error = 0
+let g:go_def_reuse_buffer = 1
+
+autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
+autocmd FileType go nmap <leader>e <Plug>(go-test)
+autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
+autocmd FileType go nmap <leader>d <Plug>(go-def-tab)
+autocmd FileType go nmap <leader>rj :GoRemoveTags<CR>
+autocmd FileType go nmap <leader>j :GoAddTags<CR>
+autocmd FileType go nmap <leader>r :GoIfErr<CR>
+
+" Rust settings
+let g:rustfmt_autosave = 1
+let g:racer_cmd = "~/.cargo/bin/racer"
+" let g:racer_experimental_completer = 1
+let g:racer_insert_paren = 1
+
+augroup Racer
+    autocmd!
+    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
+    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
+    autocmd FileType rust nmap <buffer> <C-]>      <Plug>(rust-def)
+    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
+augroup END
+
+" Autocomplete
+set completeopt+=menuone
+set completeopt+=noinsert
+set shortmess+=c                " Shut off completion messages
+
+let g:mucomplete#enable_auto_at_startup = 1
+let g:mucomplete#completion_delay = 1
+
+" Move up and down in autocomplete with <c-j> and <c-k>
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 2
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_signs = 0
+
+" Wrap location-list
+augroup LocationList
+    autocmd!
+    autocmd FileType qf setlocal wrap
+augroup END
 
 " Highlight end of line whitespace.
 highlight WhitespaceEOL ctermbg=red guibg=red
 match WhitespaceEOL /\s\+$/
 
-" Escape html tags
-function HtmlEscape()
-  silent s/&/\&amp;/ge
-  silent s/</\&lt;/ge
-  silent s/>/\&gt;/ge
-  silent s/"/\&quot;/ge
-endfunction
+" EasyAlign
+au FileType markdown vmap <leader><Bslash> :EasyAlign*<Bar><Enter>
 
-map <silent> ,h :call HtmlEscape()<CR>
+" Color scheme
 
-" Escape Django brackets
-function DjangoEscape()
-  silent s/{/\&#123;/ge
-  silent s/}/\&#125;/ge
-endfunction
+if $COLORTERM == 'truecolor'
+    set termguicolors
+    colorscheme bluewery
+    hi! LineNr guibg=#142c35
 
-map <silent> ,d :call DjangoEscape()<CR>
+    set noshowmode
+    set laststatus=2
+    let g:lightline = { 'colorscheme': 'bluewery' }
+else
+    set background=light
+    highlight clear
 
-" Vim color scheme
+    if exists("syntax_on")
+      syntax reset
+    endif
 
-set background=light
-highlight clear
-
-if exists("syntax_on")
-  syntax reset
+    hi Cursor  ctermfg=15 ctermbg=240
+    hi Visual  ctermbg=189
+    hi CursorLine  ctermbg=231
+    hi CursorColumn  ctermbg=15
+    hi LineNr  ctermfg=244
+    hi VertSplit  ctermfg=15 ctermbg=252
+    hi MatchParen  ctermfg=27
+    hi Pmenu ctermbg=7
+    hi PmenuSel  ctermbg=189
+    hi Directory  ctermfg=88
+    hi IncSearch  ctermbg=222
+    hi Search  ctermbg=223
+    hi Normal  ctermfg=0
+    hi Boolean  ctermfg=69
+    hi Character  ctermfg=160
+    hi Comment  ctermfg=27
+    hi Conditional  ctermfg=27
+    hi Constant  ctermfg=160
+    hi Define  ctermfg=27
+    hi ErrorMsg  ctermfg=15 ctermbg=88
+    hi WarningMsg  ctermfg=15 ctermbg=88
+    hi Float  ctermfg=19
+    hi Function  ctermfg=19
+    hi Identifier  ctermfg=27
+    hi Keyword  ctermfg=27
+    hi Label  ctermfg=28
+    hi Number  ctermfg=19
+    hi Operator  ctermfg=27
+    hi PreProc  ctermfg=27
+    hi Special  ctermfg=0
+    hi Statement  ctermfg=27
+    hi StorageClass  ctermfg=27
+    hi String  ctermfg=28
+    hi Title  ctermfg=0
+    hi Todo  ctermfg=27
+    hi NonText  ctermfg=253
+    hi SpecialKey  ctermfg=253 ctermbg=15
+    highlight clear TabLine
+    hi Tabline cterm=underline
 endif
-
-" Colors:
-"
-" #000000 - black
-" #3C4C72 - BLUE/GREY - cursor, rails helpers
-" #0000A2 - D.BLUE - numbers & function names
-" #1E39F6 - BLUE
-" #0066FF - L.BLUE - Comments, TODOs and folds
-" #6E79F1 - L.PURPLE - Booleans, Ruby Constants & CSS definitions
-" #318495 - BLUE/GREEN - Ruby instance/global/pseudo variables
-" #007B22 - D.GREEN - Strings, Labels and code blocks in Markdown
-" #00BC41 - L.GREEN - CSS common attributes & ruby interpolation
-" #990000 - BURGUNDY - Errors and Warnings
-" #D51015 - RED for constants, symbols, numbers
-" #E18AC7 - PINK RegularExpressions in Ruby
-" #FFCE77 - ORANGE - Incremental Search
-" #FFE6BB - L.ORANGE - Search
-" #C6DEFF - VL.BLUE Visual, Current StatusLine & AutoComplete selection
-" #808080 - Line numbers
-" #CFCFCF - VerticalSplit separator
-" #DFDFDF - Invisible Characters
-" #EFEFEF - LineNumber & Non-Current StatusLine
-" #F0F6FF - CursorLine & CursorColumn
-" #FFFFFF - WHITE
-
-" GUI:
-hi Cursor  ctermfg=15 ctermbg=240
-hi Visual  ctermbg=189
-hi CursorLine  ctermbg=231
-hi CursorColumn  ctermbg=15
-hi LineNr  ctermfg=244
-hi VertSplit  ctermfg=15 ctermbg=252
-hi MatchParen  ctermfg=27
-hi Pmenu ctermbg=7
-hi PmenuSel  ctermbg=189
-hi Directory  ctermfg=88
-
-" Search:
-" [IncSearch is stronger than Search]
-hi IncSearch  ctermbg=222
-hi Search  ctermbg=223
-
-" Syntax:
-" hi Normal  ctermfg=0 ctermbg=231
-hi Normal  ctermfg=0
-hi Boolean  ctermfg=69
-hi Character  ctermfg=160
-hi Comment  ctermfg=27
-hi Conditional  ctermfg=27
-hi Constant  ctermfg=160
-hi Define  ctermfg=27
-hi ErrorMsg  ctermfg=15 ctermbg=88
-hi WarningMsg  ctermfg=15 ctermbg=88
-hi Float  ctermfg=19
-hi Function  ctermfg=19
-hi Identifier  ctermfg=27
-hi Keyword  ctermfg=27
-hi Label  ctermfg=28
-hi Number  ctermfg=19
-hi Operator  ctermfg=27
-hi PreProc  ctermfg=27
-hi Special  ctermfg=0
-hi Statement  ctermfg=27
-hi StorageClass  ctermfg=27
-hi String  ctermfg=28
-hi Title  ctermfg=0
-hi Todo  ctermfg=27
-
-" Invisible character colors
-hi NonText  ctermfg=253
-hi SpecialKey  ctermfg=253 ctermbg=15
-
-
-highlight clear TabLine
-hi Tabline cterm=underline
