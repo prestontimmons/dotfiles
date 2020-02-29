@@ -176,19 +176,19 @@ let g:go_fmt_command = "goimports"
 let g:go_list_type = "quickfix"
 let g:go_jump_to_error = 0
 let g:go_def_reuse_buffer = 1
+" let g:go_auto_type_info = 1
 
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
-autocmd FileType go nmap <leader>e <Plug>(go-test)
 autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
+autocmd FileType go nmap <leader>b <Plug>(go-build)
 autocmd FileType go nmap <leader>d <Plug>(go-def-tab)
-autocmd FileType go nmap <leader>rj :GoRemoveTags<CR>
-autocmd FileType go nmap <leader>j :GoAddTags<CR>
 autocmd FileType go nmap <leader>r :GoIfErr<CR>
+autocmd FileType go nmap <leader>i <Plug>(go-info)
 
 " Rust settings
 let g:rustfmt_autosave = 1
 let g:racer_cmd = "~/.cargo/bin/racer"
-" let g:racer_experimental_completer = 1
+let g:racer_experimental_completer = 1
 let g:racer_insert_paren = 1
 
 augroup Racer
@@ -201,27 +201,31 @@ augroup Racer
 augroup END
 
 " Autocomplete
-set completeopt+=menuone
-set completeopt+=noinsert
+set completeopt=menuone,longest,noselect
 set shortmess+=c                " Shut off completion messages
+autocmd CompleteDone * pclose
+
+" Move up and down in autocomplete with j and k
+inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
+inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
+
+" Make enter select highlighted entry
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 let g:mucomplete#enable_auto_at_startup = 1
 let g:mucomplete#completion_delay = 1
-
-" Move up and down in autocomplete with <c-j> and <c-k>
-inoremap <expr> j ((pumvisible())?("\<C-n>"):("j"))
-inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 
 " Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+set scl=yes
 
 let g:syntastic_always_populate_loc_list = 0
 let g:syntastic_auto_loc_list = 2
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 0
+let g:syntastic_enable_signs = 1
 
 " Wrap location-list
 augroup LocationList
