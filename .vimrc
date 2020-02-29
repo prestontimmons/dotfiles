@@ -16,6 +16,8 @@ call plug#begin('~/.vim/plugged')
     Plug 'relastle/bluewery.vim'
     Plug 'itchyny/lightline.vim'
     Plug 'junegunn/vim-easy-align'
+    Plug 'junegunn/fzf', { 'do': './install --bin' }
+    Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " More information can be found about settings by
@@ -103,8 +105,22 @@ nmap <silent> <leader>f :%s/\s\+$//ge<cr>
 " Toggle paste mode
 nmap <leader>p :set invpaste paste?<cr>
 
-" Open a new tabe in the explorer window
+" Open a new explorer tab
 nmap <leader>t :tabe\|:Ex<cr>
+
+" FZF search shortcuts
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'dir': system('git rev-parse --show-toplevel 2> /dev/null')[:-2]}
+  call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+nmap <leader>u :tabe\|:GFiles<cr>
+nmap <leader>U :tabe\|:RG<cr>
 
 " Delete DOS carriage returns
 nmap <silent> <leader>m :%s/\r//g<cr>
