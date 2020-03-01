@@ -15,6 +15,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-syntastic/syntastic'
     Plug 'relastle/bluewery.vim'
     Plug 'itchyny/lightline.vim'
+    Plug 'mengelbrecht/lightline-bufferline'
     Plug 'junegunn/vim-easy-align'
     Plug 'junegunn/fzf', { 'do': './install --bin' }
     Plug 'junegunn/fzf.vim'
@@ -243,8 +244,17 @@ match WhitespaceEOL /\s\+$/
 " EasyAlign
 au FileType markdown vmap <leader><Bslash> :EasyAlign*<Bar><Enter>
 
-" Color scheme
+" Lightline
+let g:lightline = {}
+let g:lightline#bufferline#filename_modifier = ':t'
+let g:lightline#bufferline#unnamed      = '[No Name]'
+let g:lightline#bufferline#show_number  = 1
+let g:lightline.tabline          = {'left': [['buffers']], 'right': [['close']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+set showtabline=2
 
+" Color scheme
 if $COLORTERM == 'truecolor'
     set termguicolors
     colorscheme bluewery
@@ -252,7 +262,7 @@ if $COLORTERM == 'truecolor'
 
     set noshowmode
     set laststatus=2
-    let g:lightline = { 'colorscheme': 'bluewery' }
+    let g:lightline.colorscheme = 'bluewery'
 else
     set background=light
     highlight clear
