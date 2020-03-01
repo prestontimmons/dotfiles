@@ -18,6 +18,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'junegunn/vim-easy-align'
     Plug 'junegunn/fzf', { 'do': './install --bin' }
     Plug 'junegunn/fzf.vim'
+    Plug 'chrisbra/unicode.vim'
 call plug#end()
 
 " More information can be found about settings by
