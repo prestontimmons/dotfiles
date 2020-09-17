@@ -9,16 +9,12 @@ endif
 call plug#begin('~/.vim/plugged')
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
     Plug 'rust-lang/rust.vim'
-    Plug 'racer-rust/vim-racer'
     Plug 'posva/vim-vue'
-    Plug 'lifepillar/vim-mucomplete'
-    Plug 'vim-syntastic/syntastic'
     Plug 'itchyny/lightline.vim'
     Plug 'mengelbrecht/lightline-bufferline'
     Plug 'junegunn/vim-easy-align'
     Plug 'junegunn/fzf', { 'do': './install --bin' }
     Plug 'junegunn/fzf.vim'
-    Plug 'chrisbra/unicode.vim'
     Plug 'tpope/vim-fugitive'
     Plug 'arzg/vim-substrata'
 call plug#end()
@@ -157,7 +153,7 @@ let g:netrw_fastbrowse = 0
 let g:netrw_banner = 0
 let g:netrw_liststyle = 1
 let g:netrw_keepdir = 0
-let g:netrw_sort_by = "exten"
+let g:netrw_sort_by = "name"
 
 " Indent toggle
 nmap <leader>s :set tabstop=4\|set softtabstop=4\|set shiftwidth=4<cr>
@@ -189,6 +185,7 @@ augroup END
 autocmd FileType go setlocal noexpandtab shiftwidth=4 tabstop=4 softtabstop=4
 " nnoremap <silent><Leader><C-]> <C-w><C-]><C-w>T
 let g:go_fmt_command = "goimports"
+let g:go_fmt_experimental = 1
 let g:go_list_type = "quickfix"
 let g:go_jump_to_error = 0
 " let g:go_def_reuse_buffer = 0
@@ -204,18 +201,6 @@ autocmd FileType go nmap <leader>i <Plug>(go-info)
 
 " Rust settings
 let g:rustfmt_autosave = 1
-let g:racer_cmd = "~/.cargo/bin/racer"
-let g:racer_experimental_completer = 1
-let g:racer_insert_paren = 1
-
-augroup Racer
-    autocmd!
-    autocmd FileType rust nmap <buffer> gd         <Plug>(rust-def)
-    autocmd FileType rust nmap <buffer> gs         <Plug>(rust-def-split)
-    autocmd FileType rust nmap <buffer> gx         <Plug>(rust-def-vertical)
-    autocmd FileType rust nmap <buffer> <C-]>      <Plug>(rust-def)
-    autocmd FileType rust nmap <buffer> <leader>gd <Plug>(rust-doc)
-augroup END
 
 " Autocomplete
 set completeopt=menuone,longest,noinsert
@@ -229,25 +214,6 @@ inoremap <expr> k ((pumvisible())?("\<C-p>"):("k"))
 " Make enter select highlighted entry
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-let g:mucomplete#enable_auto_at_startup = 1
-let g:mucomplete#completion_delay = 1
-
-" Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-set scl=no
-
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-let g:syntastic_enable_signs = 1
-let g:syntastic_mode_map = {
-    \ "mode": "active",
-    \ "active_filetypes": ["rust"],
-    \ "passive_filetypes": ["python"] }
-
 " Wrap location-list
 augroup LocationList
     autocmd!
@@ -259,7 +225,7 @@ highlight WhitespaceEOL ctermbg=red guibg=red
 match WhitespaceEOL /\s\+$/
 
 " EasyAlign
-au FileType markdown vmap <leader><Bslash> :EasyAlign*<Bar><Enter>
+vmap <leader><Bslash> :EasyAlign*<Bar><Enter>
 
 " Lightline
 let g:lightline = {
@@ -280,12 +246,15 @@ let g:lightline.component_type   = {'buffers': 'tabsel'}
 set showtabline=2
 
 " Color scheme
-if $COLORTERM == 'truecolor'
+if $COLORTERM == 'truecolor' || exists('+termguicolors')
+    let &t_8f="\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b="\<Esc>[48;2;%lu;%lu;%lum"
     set termguicolors
     colorscheme substrata
     set noshowmode
     set laststatus=2
     let g:lightline.colorscheme = 'nord'
+    hi Normal guibg=NONE ctermbg=NONE
 else
     set t_Co=256
     set background=light
