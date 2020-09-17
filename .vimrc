@@ -116,21 +116,12 @@ nmap <silent> <leader>f :%s/\s\+$//ge<cr>
 nmap <leader>p :set invpaste paste?<cr>
 
 " Open a new explorer buffer
-nmap <leader>t :enew\|:Ex<cr>
+nmap - :Ex<cr>
 
-" FZF search shortcuts
-function! RipgrepFzf(query, fullscreen)
-  let command_fmt = "rg --column --line-number --no-heading --color=always -g '!vendor' --smart-case %s || true"
-  let initial_command = printf(command_fmt, shellescape(a:query))
-  let reload_command = printf(command_fmt, '{q}')
-  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command], 'dir': system('git rev-parse --show-toplevel 2> /dev/null')[:-2]}
-  call fzf#vim#grep(initial_command, 1, spec, a:fullscreen)
-endfunction
-
-command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-nmap <leader>u :tabe\|:GFiles<cr>
-nmap <leader>U :tabe\|:RG<cr>
+" FZF
+nmap <leader>g :GFiles<cr>
+nmap <leader>G :GFiles?<cr>
+nmap <leader>r :Rg<cr>
 
 " Delete DOS carriage returns
 nmap <silent> <leader>m :%s/\r//g<cr>
