@@ -117,6 +117,7 @@ nmap <leader>p :set invpaste paste?<cr>
 
 " Open a new explorer buffer
 nmap - :Ex<cr>
+nmap <leader>t :Ex<cr>
 
 " FZF
 nmap <leader>g :GFiles<cr>
@@ -133,7 +134,7 @@ nmap <leader>w :set wrap!<cr>
 nmap <leader>n :set number!<cr>
 
 " Change the working directory to the current file always
-autocmd BufEnter,BufWritePost * lcd %:p:h
+set autochdir
 
 " <C-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR>:cclose<CR>:lclose<CR><C-l>
@@ -185,8 +186,8 @@ let g:go_jump_to_error = 0
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
+autocmd FileType go nmap <leader>d <Plug>(go-diagnostics)
 autocmd FileType go nmap <silent> <leader>v <Plug>(go-vet)<cr>
-autocmd FileType go nmap <leader>d <Plug>(go-def-tab)
 autocmd FileType go nmap <leader>r :GoIfErr<CR>
 autocmd FileType go nmap <leader>i <Plug>(go-info)
 
@@ -246,52 +247,4 @@ if $COLORTERM == 'truecolor' || exists('+termguicolors')
     set laststatus=2
     let g:lightline.colorscheme = 'nord'
     hi Normal guibg=NONE ctermbg=NONE
-else
-    set t_Co=256
-    set background=light
-    highlight clear
-
-    if exists("syntax_on")
-      syntax reset
-    endif
-
-    hi Cursor  ctermfg=15 ctermbg=240
-    hi Visual  ctermbg=189
-    hi CursorLine  ctermbg=231
-    hi CursorColumn  ctermbg=15
-    hi LineNr  ctermfg=244
-    hi VertSplit  ctermfg=15 ctermbg=252
-    hi MatchParen  ctermfg=27
-    hi Pmenu ctermbg=7
-    hi PmenuSel  ctermbg=189
-    hi Directory  ctermfg=88
-    hi IncSearch  ctermbg=189
-    hi Search  ctermbg=223
-    hi Normal  ctermfg=0
-    hi Boolean  ctermfg=69
-    hi Character  ctermfg=160
-    hi Comment  ctermfg=27
-    hi Conditional  ctermfg=27
-    hi Constant  ctermfg=160
-    hi Define  ctermfg=27
-    hi ErrorMsg  ctermfg=15 ctermbg=88
-    hi WarningMsg  ctermfg=15 ctermbg=88
-    hi Float  ctermfg=19
-    hi Function  ctermfg=19
-    hi Identifier  ctermfg=27
-    hi Keyword  ctermfg=27
-    hi Label  ctermfg=28
-    hi Number  ctermfg=19
-    hi Operator  ctermfg=27
-    hi PreProc  ctermfg=27
-    hi Special  ctermfg=0
-    hi Statement  ctermfg=27
-    hi String  ctermfg=28
-    hi Title  ctermfg=0
-    hi NonText  ctermfg=253
-    hi SpecialKey  ctermfg=253 ctermbg=15
-    hi SignColumn ctermbg=none
-
-    hi clear TabLine
-    hi Tabline cterm=underline
 endif
