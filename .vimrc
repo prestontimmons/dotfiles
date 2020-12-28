@@ -19,9 +19,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'arzg/vim-substrata'
 call plug#end()
 
-" More information can be found about settings by
-" typing :help or :help <setting>
-
 " settings
 set nocompatible  " do not be compatible with vi
 
@@ -118,6 +115,8 @@ nmap <leader>p :set invpaste paste?<cr>
 " Open a new explorer buffer
 nmap - :Ex<cr>
 nmap <leader>t :Ex<cr>
+nmap <leader>q :bd<cr>
+nmap <leader>o :only<cr>
 
 " FZF
 nmap <leader>g :GFiles<cr>
@@ -134,7 +133,7 @@ nmap <leader>w :set wrap!<cr>
 nmap <leader>n :set number!<cr>
 
 " Change the working directory to the current file always
-set autochdir
+autocmd BufEnter,BufWritePost * lcd %:p:h
 
 " <C-l> redraws the screen and removes any search highlighting.
 nnoremap <silent> <C-l> :nohl<CR>:cclose<CR>:lclose<CR><C-l>
@@ -164,7 +163,6 @@ function HtmlEscape()
     silent s/>/\&gt;/ge
     silent s/"/\&quot;/ge
 endfunction
-
 autocmd FileType html vmap <leader>h :call HtmlEscape()<CR>
 
 " C settings
@@ -182,7 +180,7 @@ let g:go_list_type = "quickfix"
 let g:go_jump_to_error = 0
 " let g:go_def_reuse_buffer = 0
 " let g:go_auto_type_info = 1
-
+nnoremap <leader>z :call go#lsp#Exit()<cr>
 autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 autocmd FileType go nmap <leader>m <Plug>(go-metalinter)
 autocmd FileType go nmap <leader>b <Plug>(go-build)
