@@ -74,6 +74,14 @@ let g:netrw_liststyle = 4
 let g:netrw_keepdir = 0
 let g:netrw_sort_by = "exten"
 
+augroup netrw
+    autocmd FileType netrw nmap <buffer> r <nop>
+    autocmd FileType netrw nmap <buffer> s <nop>
+    autocmd FileType netrw nmap <buffer> i <nop>
+    autocmd FileType netrw nmap <buffer> a gh
+    autocmd FileType netrw nmap <buffer> C <nop>
+augroup END
+
 " Wrap location-list
 augroup LocationList
     autocmd!
@@ -142,7 +150,6 @@ augroup project
 augroup END
 
 " Rust settings
-
 let g:rustfmt_autosave = 1
 
 " EasyAlign
